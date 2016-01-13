@@ -1,23 +1,20 @@
 <?php
-
 /**
  * 对公众平台发送给公众账号的消息加解密示例代码.
  *
  * @copyright Copyright (c) 1998-2014 Tencent Inc.
  */
 
+include_once "sha1.php";
+include_once "xmlparse.php";
+include_once "pkcs7Encoder.php";
+include_once "errorCode.php";  
 
-  include_once "sha1.php";
-  include_once "xmlparse.php";
-  include_once "pkcs7Encoder.php";
-  include_once "errorCode.php";  
-
-  /**
-   * 1.第三方回复加密消息给公众平台；
-   * 2.第三方收到公众平台发送的消息，验证消息的安全性，并对消息进行解密。
-   */
-  class WXBizMsgCrypt
-  {
+/**
+* 1.第三方回复加密消息给公众平台；
+* 2.第三方收到公众平台发送的消息，验证消息的安全性，并对消息进行解密。
+*/
+class WXBizMsgCrypt{
     private $token;
     private $encodingAesKey;
     private $appId;  
@@ -28,8 +25,7 @@
      * @param $encodingAesKey string 公众平台上，开发者设置的EncodingAESKey
      * @param $appId string 公众平台的appId
      */
-    public function WXBizMsgCrypt($token, $encodingAesKey, $appId)
-    {
+    public function WXBizMsgCrypt($token, $encodingAesKey, $appId){
       $this->token = $token;
       $this->encodingAesKey = $encodingAesKey;
       $this->appId = $appId;
@@ -51,8 +47,7 @@
      *
      * @return int 成功0，失败返回对应的错误码
      */
-    public function encryptMsg($replyMsg, $timeStamp, $nonce, &$encryptMsg)
-    {
+    public function encryptMsg($replyMsg, $timeStamp, $nonce, &$encryptMsg){
       $pc = new Prpcrypt($this->encodingAesKey);  
 
       //加密
@@ -99,8 +94,7 @@
      *
      * @return int 成功0，失败返回对应的错误码
      */
-    public function decryptMsg($msgSignature, $timestamp = null, $nonce, $postData, &$msg)
-    {
+    public function decryptMsg($msgSignature, $timestamp = null, $nonce, $postData, &$msg){
       if (strlen($this->encodingAesKey) != 43) {
         return ErrorCode::$IllegalAesKey;
       }  
@@ -145,6 +139,5 @@
 
       return ErrorCode::$OK;
     }  
-
   }
-
+?>
