@@ -6,6 +6,8 @@
  * @license    MIT License
  */ 
 
+require_once 'demo_wechat/wechat_demo/src/Wechat.php';
+
   /**
    * 测试对象
    */
