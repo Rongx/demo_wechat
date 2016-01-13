@@ -4,25 +4,17 @@
  *
  * @author NetPuter <netputer@gmail.com>
  */
-  include_once "wxBizMsgCrypt.php";
-  include_once "config.php";
-  /**
-   * 微信公众平台处理类
-   */
-  class Wechat {
+include_once "wxBizMsgCrypt.php";
+include_once "config.php";
+/**
+* 微信公众平台处理类
+*/
+class Wechat {
 
-    /**
-     * 调试模式，将错误通过文本消息回复显示
-     *
-     * @var boolean
-     */
+    // 调试模式，将错误通过文本消息回复显示
     private $debug;
 
-    /**
-     * 以数组的形式保存微信服务器每次发来的请求
-     *
-     * @var array
-     */
+    // 以数组的形式保存微信服务器每次发来的请求
     private $request;
 
     /**
@@ -282,58 +274,55 @@
      */
     public function run() {
       switch ($this->getRequest('msgtype')) {
-
+        // 推送消息
         case 'event':
           switch ($this->getRequest('event')) {
-
+            // 初次关注
             case 'subscribe':
               $this->onSubscribe();
               break;
-
+            // 取消关注
             case 'unsubscribe':
               $this->onUnsubscribe();
               break;
-
+            // 扫描二维码
             case 'SCAN':
               $this->onScan();
               break;
-
+            // 获取地理位置
             case 'LOCATION':
               $this->onEventLocation();
               break;
-
+            // 点击事件
             case 'CLICK':
               $this->onClick();
               break;
-
           }
-
-          break;
-
+        break;
+        // 文本消息
         case 'text':
           $this->onText();
           break;
-
+        // 图片消息
         case 'image':
           $this->onImage();
           break;
-
+        // 地理信息
         case 'location':
           $this->onLocation();
           break;
-
+        // 链接消息
         case 'link':
           $this->onLink();
           break;
-
+        // 声音消息
         case 'voice':
           $this->onVoice();
           break;
-
+        // 默认事件
         default:
           $this->onUnknown();
           break;
-
       }
     }
 
@@ -349,7 +338,7 @@
       if ( ! $this->debug) {
         return;
       }
-
+      // 错误类型
       $error_type = array(
         // E_ERROR             => 'Error',
         E_WARNING           => 'Warning',
@@ -370,12 +359,10 @@
 
       $template = <<<ERR
 PHP 报错啦！
-
 %s: %s
 File: %s
 Line: %s
 ERR;
-
       $this->responseText(sprintf($template,
         $error_type[$level],
         $msg,
@@ -383,7 +370,6 @@ ERR;
         $line
       ));
     }
-
   }
 
   /**
@@ -564,4 +550,5 @@ XML;
       );
     }
 
-  }
+}
+?>
