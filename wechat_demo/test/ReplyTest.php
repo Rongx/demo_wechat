@@ -140,7 +140,5 @@
 
       ExitTestHelper::clean();
     }
-
-
   }
 ?>

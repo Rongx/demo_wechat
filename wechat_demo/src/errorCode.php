@@ -1,5 +1,4 @@
 <?php
-
 /**
  * error code 说明.
  * <ul>
@@ -16,8 +15,7 @@
  *    <li>-40011: 生成xml失败</li>
  * </ul>
  */
-  class ErrorCode
-  {
+class ErrorCode{
     public  $OK = 0;
     public  $ValidateSignatureError = -40001;
     public  $ParseXmlError = -40002;
@@ -30,5 +28,5 @@
     public  $EncodeBase64Error = -40009;
     public  $DecodeBase64Error = -40010;
     public  $GenReturnXmlError = -40011;
-  }
-
+}
+?>

@@ -1,21 +1,20 @@
 <?php
-  include_once "errorCode.php";
-  
-  /**
-   * XMLParse class
-   *
-   * 提供提取消息格式中的密文及生成回复消息格式的接口.
-   */
-  class XMLParse
-  {
+/**
+ * XMLParse class
+ *
+ * 提供提取消息格式中的密文及生成回复消息格式的接口.
+ */
+
+include_once "errorCode.php";
+
+class XMLParse{
   
     /**
      * 提取出xml数据包中的加密消息
      * @param string $xmltext 待提取的xml字符串
      * @return string 提取出的加密消息字符串
      */
-    public function extract($xmltext)
-    {
+    public function extract($xmltext){
       try {
         $xml = new DOMDocument();
         $xml->loadXML($xmltext);
@@ -37,8 +36,7 @@
      * @param string $timestamp 时间戳
      * @param string $nonce 随机字符串
      */
-    public function generate($encrypt, $signature, $timestamp, $nonce)
-    {
+    public function generate($encrypt, $signature, $timestamp, $nonce){
       $format = "<xml>
 <Encrypt><![CDATA[%s]]></Encrypt>
 <MsgSignature><![CDATA[%s]]></MsgSignature>
@@ -46,8 +44,7 @@
 <Nonce><![CDATA[%s]]></Nonce>
 </xml>";
       return sprintf($format, $encrypt, $signature, $timestamp, $nonce);
-    }
-  
+    } 
   }
-
+?>
 

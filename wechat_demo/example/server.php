@@ -4,13 +4,13 @@
  *
  * @author NetPuter <netputer@gmail.com>
  */
+  
+require('../src/Wechat.php');
 
-  require('../src/Wechat.php');
-
-  /**
-   * 微信公众平台演示类
-   */
-  class MyWechat extends Wechat {
+/**
+* 微信公众平台演示类
+*/
+class MyWechat extends Wechat {
 
     /**
      * 用户关注时触发，回复「欢迎关注」
@@ -118,13 +118,12 @@
     protected function onUnknown() {
       $this->responseText('收到了未知类型消息：' . $this->getRequest('msgtype'));
     }
-
-  }
-
-  $wechat = new MyWechat(array(
-      'token' => $token,
-      'aeskey' => $encodingAesKey,
-      'appid' => $appId,
-      'debug' => $debugMode
-  ));
-  $wechat->run();
+}
+$wechat = new MyWechat(array(
+  'token' => $token,
+  'aeskey' => $encodingAesKey,
+  'appid' => $appId,
+  'debug' => $debugMode
+));
+$wechat->run();
+?>
